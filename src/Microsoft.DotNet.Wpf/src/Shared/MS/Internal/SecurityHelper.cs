@@ -126,14 +126,7 @@ internal static class SecurityHelper
         ///  Critical: Returns a permission object, which can be misused.
         ///</SecurityNote>
         [SecurityCritical]
-        internal static CodeAccessPermission CreateUserInitiatedRoutedEventPermission()
-        {
-            if(_userInitiatedRoutedEventPermission == null)
-            {
-                _userInitiatedRoutedEventPermission = new UserInitiatedRoutedEventPermission();
-            }
-            return _userInitiatedRoutedEventPermission;
-        }
+        internal static CodeAccessPermission CreateUserInitiatedRoutedEventPermission() { return default(CodeAccessPermission); }
 
         ///<summary>
         /// Check whether the call stack has the permissions needed for UserInitiated RoutedEvents.
@@ -143,20 +136,7 @@ internal static class SecurityHelper
         /// Safe     - The method denies the caller access to the full exception object.
         /// </SecurityNote>
         [SecuritySafeCritical]
-        internal static bool CallerHasUserInitiatedRoutedEventPermission()
-        {
-            try
-            {
-                CreateUserInitiatedRoutedEventPermission().Demand();
-            }
-            catch (SecurityException)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        static UserInitiatedRoutedEventPermission _userInitiatedRoutedEventPermission = null;
+        internal static bool CallerHasUserInitiatedRoutedEventPermission() { return true; }
 
 #endif // PRESENTATION_CORE
 
@@ -237,19 +217,7 @@ internal static class SecurityHelper
         /// Safe     - The method denies the caller access to the full exception object.
         /// </SecurityNote>
         [SecuritySafeCritical]
-        internal static bool CallerHasUserInitiatedNavigationPermission()
-        {
-            try
-            {
-                CreateUserInitiatedNavigationPermission();
-                _userInitiatedNavigationPermission.Demand();
-            }
-            catch (SecurityException)
-            {
-                return false;
-            }
-            return true;
-        }
+        internal static bool CallerHasUserInitiatedNavigationPermission() { return true; }
 
 
         ///<summary>
@@ -260,15 +228,7 @@ internal static class SecurityHelper
         ///  Critical: Returns a permission object, which can be misused.
         ///</SecurityNote>
         [SecurityCritical]
-        internal static CodeAccessPermission CreateUserInitiatedNavigationPermission()
-        {
-            if(_userInitiatedNavigationPermission == null)
-            {
-                _userInitiatedNavigationPermission = new UserInitiatedNavigationPermission();
-            }
-            return _userInitiatedNavigationPermission;
-        }
-        static UserInitiatedNavigationPermission _userInitiatedNavigationPermission = null;
+        internal static CodeAccessPermission CreateUserInitiatedNavigationPermission() { return default(CodeAccessPermission); }
 
         /// <summary>
         /// Demands for permissions needed to construct the PrintDialog in
@@ -836,9 +796,6 @@ internal static class SecurityHelper
         private static PermissionSet CreateEnvelopePermissionSet()
         {
             PermissionSet permissionSet = new PermissionSet(PermissionState.None);
-            permissionSet.AddPermission(new RightsManagementPermission());
-            permissionSet.AddPermission(new CompoundFileIOPermission());
-
             return permissionSet;
         }
 
@@ -995,10 +952,10 @@ internal static class SecurityHelper
 #endif // PRESENTATION_CORE
 
 #if !PBTCOMPILER
-        /// <SecurityNote>
-        /// Critical - Exceptions raised by a demand may contain security sensitive information that should not be passed to transparent callers
-        /// </SecurityNote>
-        [SecurityCritical]
+    /// <SecurityNote>
+    /// Critical - Exceptions raised by a demand may contain security sensitive information that should not be passed to transparent callers
+    /// </SecurityNote>
+    [SecurityCritical]
         internal static void DemandUIWindowPermission()
         {
             if(_allWindowsUIPermission == null)

@@ -1105,7 +1105,6 @@ namespace System.Windows.Input
         ///  Critical - sets the MarkAsUserInitiated bit.
         ///</SecurityNote>
         [SecurityCritical]
-        [MS.Internal.Permissions.UserInitiatedRoutedEventPermissionAttribute(SecurityAction.Assert)]
         private void RaiseProcessInputEventHandlers(ProcessInputEventHandler postProcessInput, ProcessInputEventArgs processInputEventArgs)
         {
             processInputEventArgs.StagingItem.Input.MarkAsUserInitiated();

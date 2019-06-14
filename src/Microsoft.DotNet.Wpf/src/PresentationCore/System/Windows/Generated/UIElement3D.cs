@@ -243,7 +243,6 @@ namespace System.Windows
         ///     Critical - sets the MarkAsUserInitiated bit.
         ///</SecurityNote>
         [SecurityCritical]
-        [MS.Internal.Permissions.UserInitiatedRoutedEventPermissionAttribute(SecurityAction.Assert)]
         internal void RaiseTrustedEvent(RoutedEventArgs args)
         {
             if (args == null)
